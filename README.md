@@ -1,7 +1,7 @@
 
-使用技术：node.js jade mongodb
+# 使用技术：node.js jade mongodb
 
-项目运行（nodejs 6.0+）
+# 环境（nodejs 6.10.2, npm 3.10.10）
 
 # 克隆到本地
 git clone https://github.com/xushuqi/note.git
