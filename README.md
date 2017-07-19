@@ -1,26 +1,26 @@
 
-# 使用技术：node.js jade mongodb
+## 使用技术：node.js jade mongodb
 
-# 环境（nodejs 6.10.2, npm 3.10.10）
+## 环境（nodejs 6.10.2, npm 3.10.10）
 
-# 克隆到本地
+## 克隆到本地
 git clone https://github.com/xushuqi/note.git
 
-# 安装依赖
+## 安装依赖
 npm install
 
-# 开启本地服务器localhost:3000
+## 开启本地服务器localhost:3000
 npm run dev
 
-# 发布环境
+## 发布环境
 npm run build
 
-git操作：
-git status //查询文件/文件夹状态
-git add //本地文件/文件夹添加到缓存区
-git pull //更新服务器代码到本地
-git commit //提交文件到缓存区
-git push //提交缓存区文件到服务器
+## git操作：
+### git status //查询文件/文件夹状态
+### git add //本地文件/文件夹添加到缓存区
+### git pull //更新服务器代码到本地
+### git commit //提交文件到缓存区
+### git push //提交缓存区文件到服务器
 
 ### Markdown
 
