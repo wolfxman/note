@@ -1,5 +1,6 @@
 
-## 使用技术：node.js jade mongodb
+## 使用技术：
+node.js jade mongodb
 
 ## 环境（nodejs 6.10.2, npm 3.10.10）
 
