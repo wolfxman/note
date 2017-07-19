@@ -5,7 +5,7 @@ var moment = require('moment');
 
 router.get('/', function(req, res, next) {
 	res.render('login', {
-		title: '个人日记'
+		title: '注册 / 登录'
 	})
 });
 module.exports = router;
