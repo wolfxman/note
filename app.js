@@ -12,7 +12,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var list = require('./routes/list');
 var admin = require('./routes/admin');
-var login = require('./routes/login');
+var signIn = require('./routes/signIn');
 
 var port = process.env.PORT || 3000;
 
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', login);
+app.use('/', signIn);
 app.use('/users', users);
 app.use('/list', list);//list notes.
 app.use('/admin', admin);//write note.

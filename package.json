@@ -12,6 +12,23 @@
     "express": "~4.15.2",
     "jade": "~1.11.0",
     "morgan": "~1.8.1",
-    "serve-favicon": "~2.4.2"
-  }
+    "serve-favicon": "~2.4.2",
+    "mongoose": "4.11.0"
+  },
+  "description": "You can use the [editor on GitHub](https://github.com/wolfxman/note/edit/master/README.md) to maintain and preview the content for your website in Markdown files.",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wolfxman/note.git"
+  },
+  "keywords": [
+    "xushuqi220"
+  ],
+  "author": "xushuqi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wolfxman/note/issues"
+  },
+  "homepage": "https://github.com/wolfxman/note#readme"
 }

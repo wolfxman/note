@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 //声明mongoose对象
-var UsersSchema = new Mongoose.Schema({
+var UsersSchema = mongoose.Schema({
 	name: String,
 	pwd: String,
 	meta: {
@@ -39,6 +39,10 @@ UsersSchema.statics = {
 		return this
 			.findOne({_id: id})
 			.exec(cb)
+	},
+	findByName: function(name, cb) {//根据name查询
+		return this.findOne({name: name})
+		.exec(cb);
 	}
 }
 
