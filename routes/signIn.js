@@ -4,7 +4,7 @@ var moment = require('moment');
 
 
 router.get('/', function(req, res, next) {
-	res.render('login', {
+	res.render('signIn', {
 		title: '注册 / 登录'
 	})
 });

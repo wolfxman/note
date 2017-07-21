@@ -6,7 +6,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1/note');//连接本地数据库
+mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true}, function(err){
+	if(err)
+		console.log('connect to mongodb failed...');
+	else
+		console.log('connect to mongodb success...');
+});//连接本地数据库
 
 var index = require('./routes/index');
 var users = require('./routes/users');
