@@ -14,11 +14,11 @@
 		paths: {
 			"jquery": "jquery/jquery-1.11.1.min",
 
-			"cookie": "jquery/jquery.cookie"
+			//"cookie": "jquery/jquery.cookie"
 		}
 	};
 	//AMD依赖方式加载, 依赖jquery和jquery.cookie 包
-	var dependenceModule = ["jquery", 'cookie'];
+	var dependenceModule = ["jquery"];//, 'cookie'];
 
 	/**
 	 * @description 封装为同时支持AMD和原有html 包含js序列的模式
@@ -96,7 +96,7 @@
 		/**
 		 * @description get token from cookie.
 		 */
-		var token = $.cookie("token") ? $.cookie("token") : "";
+		var token = '';//$.cookie("token") ? $.cookie("token") : "";
 
 
 		/**
@@ -1015,14 +1015,12 @@
 		exports.showError = showError;
 		exports.page = page;
 		exports.check = check;
-		exports.getIds = getIds;
-		exports.getCheckedIds = getCheckedIds;
+		// exports.getCheckedIds = getCheckedIds;
 		exports.refreshByInterval = refreshByInterval;
 		exports.clearInterval = clearInterval;
 		exports.noConflict = noConflict;
 		exports.paginationBtn = paginationBtn;
 		exports.page_num = page_num;
-		exports.domain_id = domain_id;
 		exports.getQueryString = getQueryString;
 		exports.getCodeString = getCodeString;
 		exports.baseUrl = baseUrl;

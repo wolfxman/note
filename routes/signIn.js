@@ -8,4 +8,5 @@ router.get('/', function(req, res, next) {
 		title: '注册 / 登录'
 	})
 });
+
 module.exports = router;

@@ -14,7 +14,7 @@ mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true}, function(err
 });//连接本地数据库
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./routes/user');
 var list = require('./routes/list');
 var admin = require('./routes/admin');
 var signIn = require('./routes/signIn');
@@ -38,9 +38,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', signIn);
-app.use('/users', users);
+app.use('/user', user);
 app.use('/list', list);//list notes.
 app.use('/admin', admin);//write note.
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
