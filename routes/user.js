@@ -2,7 +2,6 @@ var express = require('express');
 var mongoose = require('mongoose');//导入mongoose模块
 
 var User = require('../modules/user');//导入模型数据模块
-var UserSchema = require('../schemas/user');
 var router = express.Router();
 
 /* GET user listing. */
@@ -20,10 +19,10 @@ router.get('/user', function(req, res, next) {
 });
 router.post('/signIn', function(req, res) {
 	var queryObj = req.body;
-	User.statics.findByName(queryObj.name, function(err, User) {
-		console.log(User)
+	User.fetch(function(err, result) {
+		console.log(result);
+		res.send({res: 'success', result: result});
 	});
-	res.send({res: 'success'});
 });
 router.post('/signUp', function(req, res, next) {
 	var queryObj = req;

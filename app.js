@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true}, function(err){
 	if(err)
 		console.log('connect to mongodb failed...');
