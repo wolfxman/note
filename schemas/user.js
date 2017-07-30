@@ -32,7 +32,7 @@ UserSchema.statics = {
 	fetch: function(cb) {//查询所有数据
 		return this
 			.find({})
-			.sort('meta.updateAt')//排序
+			//.sort('meta.updateAt')//排序
 			.exec(cb)//回调
 	},
 	findById: function(id, cb) {//根据id查询单条数据
@@ -41,8 +41,9 @@ UserSchema.statics = {
 			.exec(cb)
 	},
 	findByName: function(name, cb) {//根据name查询
-		return this.findOne({name: name})
-		.exec(cb);
+		var obj = {};
+		obj.name = name;
+		return this.findOne(obj).exec(cb);
 	}
 }
 

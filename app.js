@@ -7,12 +7,27 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true}, function(err){
-	if(err)
-		console.log('connect to mongodb failed...');
-	else
-		console.log('connect to mongodb success...');
-});//连接本地数据库
+
+mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true});
+mongoose.set('debug', true);
+var db = mongoose.connection;
+db.on('error', function(err){
+    console.log(err);
+});
+
+db.on('open',function(err){
+  if(err){
+    console.log(err);
+  }
+  console.log('connect mongodb success...');
+});
+
+// mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true}, function(err){
+// 	if(err)
+// 		console.log('connect to mongodb failed...');
+// 	else
+// 		console.log('connect to mongodb success...');
+// });//连接本地数据库
 
 var index = require('./routes/index');
 var user = require('./routes/user');
