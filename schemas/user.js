@@ -14,6 +14,8 @@ var UserSchema = mongoose.Schema({
 			default: Date.now()
 		}
 	}
+},{
+	collection: 'user'
 });
 
 //每次执行都会调用，时间更新操作
