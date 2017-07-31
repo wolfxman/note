@@ -15,11 +15,29 @@ db.on('error', function(err){
     console.log(err);
 });
 
+var insertData = function(db, callback) {  
+    //连接到表 site
+    var collection = db.collection('users');
+    //插入数据
+    var data = [{"name":"admin","pwd":"admin"}];
+    collection.insert(data, function(err, result) { 
+        if(err)
+        {
+            console.log('Error:'+ err);
+            return;
+        }     
+        callback(result);
+    });
+}
+
 db.on('open',function(err){
   if(err){
     console.log(err);
   }
   console.log('connect mongodb success...');
+   insertData(db, function(result) {
+        console.log(result);
+    });
 });
 
 // mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true}, function(err){

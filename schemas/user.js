@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 //声明mongoose对象
-var UserSchema = mongoose.Schema({
+var UserSchema = new mongoose.Schema({
 	name: String,
 	pwd: String,
 	meta: {
@@ -14,8 +14,6 @@ var UserSchema = mongoose.Schema({
 			default: Date.now()
 		}
 	}
-},{
-	collection: 'user'
 });
 
 //每次执行都会调用，时间更新操作

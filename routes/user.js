@@ -20,7 +20,7 @@ router.get('/user', function(req, res, next) {
 
 router.post('/signIn', function(req, res) {
 	var queryObj = req.body;
-	Us.findByName(queryObj.name, function(err, result) {
+	User.findByName(queryObj.name, function(err, result) {
 		console.log('err: ' + err + ', result: ' + result);
 		res.send({res: 'success', result: result});
 	});
