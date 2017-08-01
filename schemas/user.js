@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 //声明mongoose对象
 var UserSchema = new mongoose.Schema({
 	name: String,
-	pwd: String,
+	password: String,
 	meta: {
 		createAt: {
 			type: Date,
