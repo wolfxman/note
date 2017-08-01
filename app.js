@@ -8,45 +8,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true});
-mongoose.set('debug', true);
-var db = mongoose.connection;
-db.on('error', function(err){
-    console.log(err);
-});
-
-var insertData = function(db, callback) {  
-    //连接到表 site
-    var collection = db.collection('users');
-    //插入数据
-    var data = [{"name":"admin","pwd":"admin"}];
-    collection.insert(data, function(err, result) { 
-        if(err)
-        {
-            console.log('Error:'+ err);
-            return;
-        }     
-        callback(result);
-    });
-}
-
-db.on('open',function(err){
-  if(err){
-    console.log(err);
-  }
-  console.log('connect mongodb success...');
-   insertData(db, function(result) {
-        console.log(result);
-    });
-});
-
-// mongoose.connect('mongodb://127.0.0.1/note', {useMongoClient:true}, function(err){
-// 	if(err)
-// 		console.log('connect to mongodb failed...');
-// 	else
-// 		console.log('connect to mongodb success...');
-// });//连接本地数据库
-
 var index = require('./routes/index');
 var user = require('./routes/user');
 var list = require('./routes/list');
@@ -56,6 +17,23 @@ var signIn = require('./routes/signIn');
 var port = process.env.PORT || 3000;
 
 var app = express();
+
+mongoose.connect('mongodb://127.0.0.1/note',{useMongoClient:true});
+mongoose.connection.on('connected', function () {
+    console.log('数据库连接成功');
+});
+// var defUser = new mongoose.model('user', { name: String,password:String });
+// var kitty = new defUser({ name: 'admin',password:"123" });
+// kitty.save(function (err) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log('meow');
+//   }
+// });
+mongoose.connection.on('error',function (err) {
+    console.log('数据库连接出现错误，错误为：'+ err);
+});
 
 app.use(express.static(path.join(__dirname, 'bower_components')));
 

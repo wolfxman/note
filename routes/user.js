@@ -1,8 +1,8 @@
 var express = require('express');
 var mongoose = require('mongoose');//导入mongoose模块
 
-var User = require('../models/user');//导入模型数据模块
 var router = express.Router();
+var User = require('../models/user');//导入模型数据模块
 
 /* GET user listing. */
 router.get('/', function(req, res, next) {
