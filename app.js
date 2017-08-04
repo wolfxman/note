@@ -2,7 +2,9 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+var morgan = require('morgan');
+var fs = require('fs');
+var rfs = require('rotating-file-stream');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
@@ -21,6 +23,20 @@ var port = process.env.PORT || 3000;
 
 var app = express();
 app.locals.moment = require('moment');
+
+var logDirectory = path.join(__dirname, 'log')
+
+// ensure log directory exists
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+
+// create a rotating write stream
+var accessLogStream = rfs('access.log', {
+  interval: '1d', // rotate daily
+  path: logDirectory
+})
+
+// setup the logger
+app.use(morgan(':id :method :url :response-time', {stream: accessLogStream}));
 
 mongoose.connect('mongodb://127.0.0.1/note',{useMongoClient:true});
 mongoose.connection.on('connected', function () {
@@ -52,7 +68,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

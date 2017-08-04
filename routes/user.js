@@ -25,9 +25,8 @@ router.post('/signIn', function(req, res) {
 	User.findByName(queryObj.name, function(err, results) {
 		if(err)
 			console.log(err);
-		console.log(results);
-		localStorage.setItem('user', JSON.stringify(results));
 		if(results._doc.password == queryObj.password){
+			localStorage.setItem('user', JSON.stringify(results));
 			resp.meta.code = 'success';
 			resp.meta.msg = 'success';
 			resp.result.push(results);

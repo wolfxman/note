@@ -20,7 +20,6 @@ router.post('/save', function(req, res, next) {
 	var queryObj = req.body;
 	var userId = ''
 	var userName = req.session.user;
-	console.log(localStorage.getItem('userName'));
 	var loginUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
 	if(!loginUser._id){
 		resp.meta.code = 'error';

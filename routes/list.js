@@ -13,7 +13,6 @@ router.get('/', function(req, res, next) {
 				items: []
 			})
 		}
-		console.log(results);
 		res.render('list', {
 			title: '列表页',
 			items: results
