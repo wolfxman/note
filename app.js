@@ -36,7 +36,7 @@ var accessLogStream = rfs('access.log', {
 })
 
 // setup the logger
-app.use(morgan(':id :method :url :response-time', {stream: accessLogStream}));
+app.use(morgan('combined', {stream: accessLogStream}));
 
 mongoose.connect('mongodb://127.0.0.1/note',{useMongoClient:true});
 mongoose.connection.on('connected', function () {

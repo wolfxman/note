@@ -2,5 +2,9 @@
 	.row
 		.page-header
 			h2 
-			a.col-md-1 注册
-			a 登录
+			if user
+				span 欢迎你， #{user}
+				a 退出
+			else
+				a.col-md-1 注册
+				a 登录
