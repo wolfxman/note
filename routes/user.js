@@ -1,5 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');//导入mongoose模块
+var LocalStorage = require('node-localstorage').LocalStorage;
+var localStorage = new LocalStorage('./scratch');
 
 var router = express.Router();
 var User = require('../models/user');//导入模型数据模块
@@ -24,6 +26,7 @@ router.post('/signIn', function(req, res) {
 		if(err)
 			console.log(err);
 		console.log(results);
+		localStorage.setItem('user', JSON.stringify(results));
 		if(results._doc.password == queryObj.password){
 			resp.meta.code = 'success';
 			resp.meta.msg = 'success';

@@ -19,7 +19,7 @@ block content
 					each item in items
 						tr(class="item_id_#{item._id}")
 							td #{item.title}
-							td #{item.createAt}
+							td #{moment(item.meta.createAt).format('YYYY-MM-DD hh:mm:ss')}
 							td #{item.content}
 							td
 								button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除

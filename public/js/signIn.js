@@ -13,6 +13,7 @@ $(function(){
 		.done(function(res){
 			if(res.meta.code === 'success'){
 				console.log('signIn success...');
+				sessionStorage.setItem('user', JSON.stringify(res.result[0]));
 				location.href = '../list';
 			}
 		})

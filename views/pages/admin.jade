@@ -4,7 +4,7 @@ block scripts
 block content
 	.container
 		.row
-			form.form-horizontal(method="POST", action="/admin/add")
+			form.form-horizontal(method="POST", action="/admin/save")
 				.form-group
 					label.col-sm-1.control-label(for="noteTitle") 标题：
 					.col-sm-11
@@ -16,4 +16,4 @@ block content
 				.form-group
 					label.col-sm-1.control-label(for="")
 					.col-sm-11
-						button.btn.btn-info#submit 提交
+						button.btn.btn-info#submit(type="button") 提交

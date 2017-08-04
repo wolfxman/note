@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 //声明mongoose对象
 var UserSchema = new mongoose.Schema({
+	_id: Number,
 	name: String,
 	password: String,
 	meta: {

@@ -4,23 +4,27 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
+var LocalStorage = require('node-localstorage').LocalStorage;
+var localStorage = new LocalStorage('./scratch');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 var index = require('./routes/index');
 var user = require('./routes/user');
 var list = require('./routes/list');
-var admin = require('./routes/admin');
+var note = require('./routes/note');
 var signIn = require('./routes/signIn');
 
 var port = process.env.PORT || 3000;
 
 var app = express();
+app.locals.moment = require('moment');
 
 mongoose.connect('mongodb://127.0.0.1/note',{useMongoClient:true});
 mongoose.connection.on('connected', function () {
-    console.log('数据库连接成功');
+    console.log('connect mongodb success...');
 });
 // var defUser = new mongoose.model('user', { name: String,password:String });
 // var kitty = new defUser({ name: 'admin',password:"123" });
@@ -32,10 +36,15 @@ mongoose.connection.on('connected', function () {
 //   }
 // });
 mongoose.connection.on('error',function (err) {
-    console.log('数据库连接出现错误，错误为：'+ err);
+    console.log('connect mongodb failed: '+ err);
 });
 
 app.use(express.static(path.join(__dirname, 'bower_components')));
+app.use(session({
+  secret: 'session',//String类型的字符串，作为服务器端生成session的签名
+  resave: true,//(是否允许)当客户端并行发送多个请求时，其中一个请求在另一个请求结束时对session进行修改覆盖并保存。默认为true
+  saveUninitialized: true//初始化session时是否保存到存储。默认为true
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views/pages'));
@@ -52,7 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', signIn);
 app.use('/user', user);
 app.use('/list', list);//list notes.
-app.use('/admin', admin);//write note.
+app.use('/note', note);//write note.
 
 
 // catch 404 and forward to error handler
@@ -74,7 +83,9 @@ app.use(function(err, req, res, next) {
 });
 
 //create server
-app.listen(port);
-console.log('Server started on port ' + port);
+app.listen(port, function(){
+  console.log('Server started on port ' + port);
+  localStorage.clear();
+});
 
 module.exports = app;
