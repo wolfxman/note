@@ -2,7 +2,21 @@ $(function(){
 	$('#addNew').click(function(e) {
 		location.href = '../note/add';
 	});
-
+	$('.del').click(function(e) {
+		var _id = $(e.target).attr('data-id');
+		var data = {};
+		data._id = _id;
+		$.ajax({
+			type: 'POST',
+			url: 'note/delOne',
+			data: data
+		})
+		.done(function(res){
+			if(res.meta.code === 'success'){
+				location.reload();
+			}
+		})
+	});
 });
 function find(){
 	var data = {};

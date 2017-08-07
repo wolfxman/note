@@ -43,12 +43,17 @@ NoteSchema.statics = {
 	},
 	findByUserId: function(id, cb) {//根据id查询单条数据
 		return this
-			.findOne({_id: id})
+			.find({userId: id})
 			.exec(cb)
 	},
 	save: function(cb) {
 		return this
 			.save(obj)
+			.exec(cb)
+	},
+	delOne: function(id, cb) {
+		return this
+			.deleteOne({_id: id})
 			.exec(cb)
 	}
 }

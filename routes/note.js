@@ -43,4 +43,29 @@ router.post('/save', function(req, res, next) {
 		}
 	})
 });
+router.post('/delOne', function(req, res, next) {
+	var queryObj = req.body;
+	var _id = ''
+	var userName = req.session.user;
+	var loginUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {};
+	if(!loginUser._id){
+		resp.meta.code = 'error';
+		resp.meta.msg = '请重新登录';
+		res.send(resp);
+	}
+	User.findById(loginUser._id, function(err, results) {
+		if(err)
+			console.log(err);
+		if(results.name !== undefined){
+			Note.delOne(queryObj._id, function(err, results) {
+				if(err)
+					console.log(err);
+				resp.meta.code = 'success';
+				resp.meta.msg = 'success';
+				resp.result.push(results);
+				res.send(resp);
+			});
+		}
+	})
+});
 module.exports = router;

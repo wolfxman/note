@@ -17,7 +17,7 @@ block content
 						th 操作
 				tbody
 					each item in items
-						tr(class="item_id_#{item._id}")
+						tr
 							td #{item.title}
 							td #{moment(item.meta.createAt).format('YYYY-MM-DD hh:mm:ss')}
 							td #{item.content}
