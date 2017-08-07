@@ -17,6 +17,10 @@ $(function(){
 			}
 		})
 	});
+	$('.edit').click(function(e) {
+		var _id = $(e.target).attr('data-id');
+		location.href = 'note/add?id=' + _id;
+	});
 });
 function find(){
 	var data = {};

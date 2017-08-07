@@ -7,7 +7,7 @@ var Note = require('../models/note');//导入模型数据模块
 var User = require('../models/user');
 var resp = require('../user_modules/response');//公共返回对象
 
-router.get('/add', function(req, res, next) {
+router.get('/add/:id', function(req, res, next) {
 	res.render('admin', {
 		title: '录入页',
 		note: {

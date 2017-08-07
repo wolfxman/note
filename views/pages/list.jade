@@ -14,12 +14,13 @@ block content
 						th 主题
 						th 创建时间
 						th 内容
-						th 操作
+						th(style="text-align:center") 操作
 				tbody
 					each item in items
 						tr
-							td #{item.title}
-							td #{moment(item.meta.createAt).format('YYYY-MM-DD hh:mm:ss')}
-							td #{item.content}
-							td
+							td(style="width:10%;") #{item.title}
+							td(style="width:15%;") #{moment(item.meta.createAt).format('YYYY-MM-DD hh:mm:ss')}
+							td(style="width:60%;") #{item.content}
+							td(style="width:15%;text-align:center;")
+								button.btn.btn-info.edit(type="button", data-id="#{item._id}") 编辑&nbsp;&nbsp;
 								button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除
