@@ -55,6 +55,11 @@ NoteSchema.statics = {
 		return this
 			.deleteOne({_id: id})
 			.exec(cb)
+	},
+	update: function(obj, cb) {
+		return this
+			.findOneAndUpdate(obj)
+			.exec(cb)
 	}
 }
 

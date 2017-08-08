@@ -4,15 +4,16 @@ block scripts
 block content
 	.container
 		.row
-			form.form-horizontal(method="POST", action="/admin/save")
+			div.noteId(style="display:none;") #{note._id}
+			form.form-horizontal(method="POST", action="")
 				.form-group
 					label.col-sm-1.control-label(for="noteTitle") 标题：
 					.col-sm-11
-						input#noteTitle.form-control(type="text" name="note[title]" value="#{note.title}")
+						input#noteTitle.form-control(type="text" name="noteTitle" value="#{note.title}")
 				.form-group
 					label.col-sm-1.control-label(for="noteContent") 内容：
 					.col-sm-11
-						textarea#noteContent.col-md-12(style="height:300px;" name="note[content]" value="#{note.title}")
+						textarea#noteContent.col-md-12(style="height:300px;" name="noteContent") #{note.content}
 				.form-group
 					label.col-sm-1.control-label(for="")
 					.col-sm-11
