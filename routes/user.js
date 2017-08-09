@@ -26,6 +26,7 @@ router.post('/signIn', function(req, res) {
 		if(err)
 			console.log(err);
 		if(results._doc.password == queryObj.password){
+			req.session.user = results._doc.name;
 			localStorage.setItem('user', JSON.stringify(results));
 			resp.meta.code = 'success';
 			resp.meta.msg = 'success';

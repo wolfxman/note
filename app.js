@@ -29,14 +29,21 @@ var logDirectory = path.join(__dirname, 'log')
 // ensure log directory exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 
+function getLogFilename() {
+  var day = new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate();
+  return 'access' + day + '.log';
+}
 // create a rotating write stream
-var accessLogStream = rfs('access.log', {
+var accessLogStream = rfs(getLogFilename(), {
   interval: '1d', // rotate daily
   path: logDirectory
 })
 
 // setup the logger
-app.use(morgan('combined', {stream: accessLogStream}));
+morgan.format('dev', '[dev] :date[iso] :method :url :status :res[content-length] - :response-time ms :referrer :user-agent');
+app.use(morgan('dev', {
+  stream: accessLogStream
+}));
 
 mongoose.connect('mongodb://127.0.0.1/note',{useMongoClient:true});
 mongoose.connection.on('connected', function () {
@@ -57,7 +64,7 @@ mongoose.connection.on('error',function (err) {
 
 app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(session({
-  secret: 'session',//String类型的字符串，作为服务器端生成session的签名
+  secret: 'xsq',//String类型的字符串，作为服务器端生成session的签名
   resave: true,//(是否允许)当客户端并行发送多个请求时，其中一个请求在另一个请求结束时对session进行修改覆盖并保存。默认为true
   saveUninitialized: true//初始化session时是否保存到存储。默认为true
 }));
@@ -68,12 +75,17 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.use('*', function(req, res, next) {
+//   morgan('req url: ' + req.url);
+//   morgan(req.body);
+//   next();
+// });
 app.use('/', signIn);
 app.use('/user', user);
 app.use('/list', list);//list notes.
