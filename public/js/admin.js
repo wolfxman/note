@@ -1,7 +1,7 @@
 $(function(){
 	$('#submit').click(function(e) {
-		var title = $('#noteTitle').val();
-		var content = $('#noteContent').val();
+		var title = $('#noteTitle').val().trim();
+		var content = $('#noteContent').val().trim();
 
 		var note = localStorage.getItem('note') ? localStorage.getItem('note') : '';
 		note += ' ' + title + ',' + content + ',' + new Date().getTime();

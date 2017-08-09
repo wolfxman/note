@@ -1,10 +1,10 @@
 .container
 	.row
 		.page-header
-			h2 
-			if user
-				span 欢迎你， #{user}
-				a 退出
-			else
-				a.col-md-1 注册
-				a 登录
+			h5(style="text-align:right;") 
+				if user
+					span 欢迎你， #{user} &nbsp;&nbsp;
+					a(href="/") 退出
+				else
+					a 注册&nbsp;&nbsp;
+					a 登录

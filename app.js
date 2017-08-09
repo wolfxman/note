@@ -2,7 +2,7 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var favicon = require('serve-favicon');
-var morgan = require('morgan');
+var morgan = require('morgan');//日志模块
 var fs = require('fs');
 var rfs = require('rotating-file-stream');
 var cookieParser = require('cookie-parser');
@@ -13,7 +13,6 @@ var localStorage = new LocalStorage('./scratch');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-var index = require('./routes/index');
 var user = require('./routes/user');
 var list = require('./routes/list');
 var note = require('./routes/note');
@@ -29,6 +28,10 @@ var logDirectory = path.join(__dirname, 'log')
 // ensure log directory exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 
+/**
+ * 日志命名
+ * @return {[type]} [description]
+ */
 function getLogFilename() {
   var day = new Date().getDate() > 9 ? new Date().getDate() : '0' + new Date().getDate();
   return 'access' + day + '.log';
@@ -81,16 +84,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('*', function(req, res, next) {
-//   morgan('req url: ' + req.url);
-//   morgan(req.body);
-//   next();
-// });
 app.use('/', signIn);
 app.use('/user', user);
 app.use('/list', list);//list notes.
 app.use('/note', note);//write note.
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
