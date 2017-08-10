@@ -41,9 +41,12 @@ var accessLogStream = rfs(getLogFilename(), {
   interval: '1d', // rotate daily
   path: logDirectory
 })
+morgan.token(function() {
+
+});
 
 // setup the logger
-morgan.format('dev', '[dev] :date[iso] :method :url :status :res[content-length] - :response-time ms :referrer :user-agent');
+morgan.format('dev', '[dev]:remote-addr - :remote-user :date[iso] :method :url :status :res[content-length] - :response-time ms :referrer :user-agent');
 app.use(morgan('dev', {
   stream: accessLogStream
 }));
