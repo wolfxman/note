@@ -1,6 +1,6 @@
 $(function(){
 	$('#signUp').click(function(e) {
-		checkUser();
+		signUp();
 	});
 	$('body').keyup(function(e) {
 		if(e.keyCode == 13) {
@@ -8,20 +8,20 @@ $(function(){
 		}
 	});
 });
-function checkUser(){
-	var name = $('#userName').val();
-	var password = $('#password').val();
-	var repwd = $('#repassword').val();
-	if(name.trim().length == 0){
-		$xsq.tips('请输入用户名');
+function signUp(){
+	var name = $('#userName').val().trim();
+	var password = $('#password').val().trim();
+	var repwd = $('#rePassword').val().trim();
+	if(name.length == 0){
+		alert('请输入用户名');
 		return false;
 	}
-	if(password.trim().length == 0){
-		$xsq.tips('请输入密码');
+	if(password.length == 0){
+		alert('请输入密码');
 		return false;
 	}
 	if(password != repwd){
-		$xsq.tips('两次密码不一致');
+		alert('两次密码不一致');
 		return false;
 	}
 	var data = {};
@@ -30,12 +30,14 @@ function checkUser(){
 	$.ajax({
 		url: 'signUp',
 		type: "POST",
-		data: data,
-		enctype: 'application/json;charset=utf-8',
-		dataType: "text",
-		success: function(datas) {
-			
-		},
-		error: function(xhr, error) {}
-	});
+		data: data
+	})
+	.done(function(res){
+		if(res.meta.code === 'error'){
+			alert(res.meta.msg);
+		}else if(res.meta.code === 'success'){
+			console.log('signUp success...');
+			location.href = '../../list';
+		}
+	})
 }

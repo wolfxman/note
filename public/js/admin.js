@@ -14,13 +14,6 @@ $(function(){
 		}
 		data.title = title;
 		data.content = content;
-		var user = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')) : {};
-		if(!user._id){
-			alert('请重新登录');
-			return;
-		}else{
-			data.userId = user._id;
-		}
 		var url = '';
 		if(data._id)
 			url = '../update';
@@ -42,5 +35,12 @@ $(function(){
 				location.href = url;
 			}
 		})
+	});
+	$('#cancel').click(function(e) {
+		if($('.noteId').text() != 'undefined')
+			url = '../../list';
+		else
+			url = '../list';
+		location.href = url;
 	});
 });

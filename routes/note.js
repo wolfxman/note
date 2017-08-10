@@ -43,6 +43,7 @@ router.post('/save', function(req, res, next) {
 		res.send(resp);
 	}
 	var queryObj = req.body;
+	queryObj.userId = req.session._id;
 	var note = new Note(queryObj);
 	note.save(function(err, results) {
 		if(err)

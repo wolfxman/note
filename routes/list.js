@@ -7,7 +7,7 @@ var resp = require('../user_modules/response');//公共返回对象
 router.get('/', function(req, res, next) {
 	if(!req.session.user)
 		res.redirect('/')
-	Note.fetch(function(err, results) {
+	Note.findByUserId(req.session._id, function(err, results) {
 		if(err){
 			console.log(err);
 			res.render('list', {

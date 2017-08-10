@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');//导入mongoose模块
+var bcrypt = require('bcrypt');
 var LocalStorage = require('node-localstorage').LocalStorage;
 var localStorage = new LocalStorage('./scratch');
 
@@ -25,18 +26,50 @@ router.post('/signIn', function(req, res) {
 	User.findByName(queryObj.name, function(err, results) {
 		if(err)
 			console.log(err);
-		if(results._doc.password == queryObj.password){
-			req.session._id = results._doc._id;
-			req.session.user = results._doc.name;
-			localStorage.setItem('user', JSON.stringify(results));
-			resp.meta.code = 'success';
-			resp.meta.msg = 'success';
-			resp.result.push(results);
-		}else{
+		bcrypt.compare(queryObj.password, results._doc.password, function(err, isMatch) {
+			if(err){
+				console.log(err);
+				resp.meta.code = 'error';
+				resp.meta.msg = '用户名或密码不正确';
+			}
+			if(isMatch){
+				req.session._id = results._doc._id;
+				req.session.user = results._doc.name;
+				resp.meta.code = 'success';
+				resp.meta.msg = 'success';
+			}
+			res.send(resp);
+		});
+	});
+});
+router.get('/signUp', function(req, res, next) {
+	res.render('signUp', {title: '注册', user: ''});
+});
+router.post('/signUp', function(req, res) {
+	var queryObj = req.body;
+	queryObj.name = queryObj.name.trim();
+	User.findByName(queryObj.name, function(err, results) {
+		if(err)
+			console.log(err);
+		if(!results){
+			var user = new User(queryObj);
+			user.save(function(err, results) {
+				if(err){
+					console.log(err);
+					resp.meta.code = 'error';
+					resp.meta.msg = '插入数据库时发生错误，请重新注册';
+				}
+				req.session._id = results._doc._id;
+				req.session.user = results._doc.name;
+				resp.meta.code = 'success';
+				resp.meta.msg = 'success';
+				res.send(resp);
+			});
+		}else if(results._doc.name == queryObj.name){
 			resp.meta.code = 'error';
-			resp.meta.msg = '用户名或密码不正确';
+			resp.meta.msg = '用户名已被使用';
+			res.send(resp);
 		}
-		res.send(resp);
 	});
 });
 

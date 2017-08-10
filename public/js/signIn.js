@@ -1,7 +1,9 @@
 $(function(){
 	$('#signIn').click(function(e) {
-		var name = $('#userName').val();
-		var password = $('#password').val();
+		var name = $('#userName').val().trim();
+		var password = $('#password').val().trim();
+		if(name.length == 0 || password.length == 0)
+			return;
 		var data = {};
 		data.name = name;
 		data.password = password;

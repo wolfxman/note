@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
-
+var bcrypt = require('bcrypt');
+const ROUNDS = 10;//the number of rounds to process the data for.
 //声明mongoose对象
 var UserSchema = new mongoose.Schema({
-	_id: Number,
 	name: String,
 	password: String,
 	meta: {
@@ -19,13 +19,22 @@ var UserSchema = new mongoose.Schema({
 
 //每次执行都会调用，时间更新操作
 UserSchema.pre('save', function(next){
+	var user = this;
 	if(this.isNew) {
 		this.meta.createAt = this.meta.updateAt = Date.now();
 	}else{
 		this.meta.updateAt = Date.now();
 	}
-	
-	next();
+	bcrypt.genSalt(ROUNDS, function(err, salt) {
+		if(err) 
+			return next(err);
+		bcrypt.hash(user.password, salt, function(err, hash) {
+			if(err) 
+				return next(err);
+			user.password = hash;
+			next();
+		})
+	})
 });
 
 //查询的静态方法
@@ -45,6 +54,11 @@ UserSchema.statics = {
 		var obj = {};
 		obj.name = name;
 		return this.findOne(obj).exec(cb);
+	},
+	save: function(cb) {//新增用户
+		return this
+			.save(obj)
+			.exec(cb)
 	}
 }
 
