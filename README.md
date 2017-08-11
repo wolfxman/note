@@ -16,12 +16,7 @@ npm run dev
 ## 发布环境
 npm run build
 
-## git操作：
-### git status //查询文件/文件夹状态
-### git add //本地文件/文件夹添加到缓存区
-### git pull //更新服务器代码到本地
-### git commit //提交文件到缓存区
-### git push //提交缓存区文件到服务器
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/wolfxman/note/edit/master/README.md) to maintain and preview the content for your website in Markdown files.

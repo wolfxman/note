@@ -68,7 +68,6 @@ router.post('/update', function(req, res, next) {
 			resp.meta.msg = err;
 			res.send(resp);
 		}else{
-			var temp = results;
 			var note = _.extend(results, queryObj);
 			Note.update(note._id, note, function(err, results) {
 				if(err)
