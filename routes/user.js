@@ -33,7 +33,7 @@ router.post('/signIn', function(req, res) {
 				resp.meta.msg = '用户名或密码不正确';
 			}
 			if(isMatch){
-				localStorage.setItem('user', results);
+				// localStorage.setItem('user', results);
 				req.session._id = results._doc._id;
 				req.session.user = results._doc.name;
 				resp.meta.code = 'success';

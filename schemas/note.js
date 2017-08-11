@@ -56,9 +56,9 @@ NoteSchema.statics = {
 			.deleteOne({_id: id})
 			.exec(cb)
 	},
-	update: function(obj, cb) {
+	update: function(id, obj, cb) {
 		return this
-			.findOneAndUpdate(obj)
+			.findOneAndUpdate(id, obj)
 			.exec(cb)
 	}
 }
