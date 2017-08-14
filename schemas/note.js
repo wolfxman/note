@@ -59,7 +59,7 @@ NoteSchema.statics = {
 	},
 	update: function(id, obj, cb) {
 		return this
-			.findOneAndUpdate(id, obj)
+			.findByIdAndUpdate(id, obj, {new: true})
 			.exec(cb)
 	}
 }

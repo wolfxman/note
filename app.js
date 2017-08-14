@@ -51,6 +51,7 @@ app.use(morgan('dev', {
   stream: accessLogStream
 }));
 
+mongoose.set('debug', true);//enable logging collection methods + arguments to the console.
 mongoose.connect('mongodb://127.0.0.1/note',{useMongoClient:true});
 mongoose.connection.on('connected', function () {
     console.log('connect mongodb success...');

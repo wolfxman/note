@@ -68,8 +68,10 @@ router.post('/update', function(req, res, next) {
 			resp.meta.msg = err;
 			res.send(resp);
 		}else{
+			var id = queryObj._id;
 			var note = _.extend(results, queryObj);
-			Note.update(note._id, note, function(err, results) {
+			note._doc._id = undefined;
+			Note.update(id, note, function(err, results) {
 				if(err)
 					console.log(err);
 				resp.meta.code = 'success';
