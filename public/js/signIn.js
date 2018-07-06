@@ -17,6 +17,9 @@ $(function(){
 				console.log('signIn success...');
 				sessionStorage.setItem('user', JSON.stringify(res.result[0]));
 				location.href = '../list';
+			}else{
+				alert(res.meta.msg);
+				location.href = '../user/signUp';
 			}
 		})
 	});
