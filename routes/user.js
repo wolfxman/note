@@ -26,21 +26,27 @@ router.post('/signIn', function(req, res) {
 	User.findByName(queryObj.name, function(err, results) {
 		if(err)
 			console.log(err);
-		bcrypt.compare(queryObj.password, results._doc.password, function(err, isMatch) {
-			if(err){
-				console.log(err);
-				resp.meta.code = 'error';
-				resp.meta.msg = '用户名或密码不正确';
-			}
-			if(isMatch){
-				// localStorage.setItem('user', results);
-				req.session._id = results._doc._id;
-				req.session.user = results._doc.name;
-				resp.meta.code = 'success';
-				resp.meta.msg = 'success';
-			}
+		if(results){
+			bcrypt.compare(queryObj.password, results._doc.password, function(err, isMatch) {
+				if(err){
+					console.log(err);
+					resp.meta.code = 'error';
+					resp.meta.msg = '用户名或密码不正确';
+				}
+				if(isMatch){
+					// localStorage.setItem('user', results);
+					req.session._id = results._doc._id;
+					req.session.user = results._doc.name;
+					resp.meta.code = 'success';
+					resp.meta.msg = 'success';
+				}
+				res.send(resp);
+			});
+		}else{
+			resp.meta.code = 'error';
+			resp.meta.msg = '用户不存在，请先注册';
 			res.send(resp);
-		});
+		}
 	});
 });
 router.get('/signUp', function(req, res, next) {
