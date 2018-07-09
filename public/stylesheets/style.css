@@ -6,3 +6,7 @@ body {
 a {
   color: #00B7FF;
 }
+input, textarea {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
