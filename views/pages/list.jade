@@ -1,4 +1,5 @@
 include ../layout
+include ../includes/header
 block scripts
 	script(src="/js/list.js")
 block content
@@ -7,20 +8,21 @@ block content
 			.panel.panel-default.full-width
 				.panel-body.full-width(style="text-align:right;")
 					label.control-label
-						button.btn.btn-info#addNew 新增
-			table.table.table-bordered.table-hover
-				thead
-					tr
-						th(style="width:15%;") 主题
-						th(style="width:15%;") 创建时间
-						th(style="width:55%;") 内容
-						th(style="width:15%;text-align:center") 操作
-				tbody
-					each item in items
-						tr
-							td #{item.title}
-							td #{moment(item.meta.createAt).format('YYYY-MM-DD hh:mm:ss')}
-							td #{item.content}
-							td(style="text-align:center;")
-								button.btn.btn-info.edit(type="button", data-id="#{item._id}") 编辑
-								button.btn.btn-danger.del(type="button", data-id="#{item._id}") 删除
+						button.btn.btn-info#addNew(style="font-size:4rem;") 新增
+	.container(style="overflow:auto;height:120rem;")
+		.row
+			each item in items
+				.panel.panel-default.full-width(style="font-size:4rem;")
+					.panel-body.full-width
+						div
+							label.control-label 主题
+							span(style="margin-left:1rem;") #{item.title}
+						div
+							label.control-label 创建时间
+							span(style="margin-left:1rem;") #{moment(item.meta.createAt).format('YYYY-MM-DD hh:mm:ss')}
+						div
+							label.control-label 内容
+							span(style="margin-left:1rem;") #{item.content}
+						div(style="text-align:right;")
+							button.btn.btn-info.edit(type="button", data-id="#{item._id}" style="font-size:3rem;") 编辑
+							button.btn.btn-danger.del(type="button", data-id="#{item._id}" style="font-size:3rem;margin-left:2rem;") 删除
