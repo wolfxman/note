@@ -1,4 +1,5 @@
 include ../layout
+include ../includes/header
 block scripts
 	script(src="/js/admin.js")
 block content
@@ -7,15 +8,12 @@ block content
 			div.noteId(style="display:none;") #{note._id}
 			form.form-horizontal(method="POST", action="")
 				.form-group
-					label.col-sm-1.control-label(for="noteTitle") 标题：
 					.col-sm-11
-						input#noteTitle.form-control(type="text" name="noteTitle" value="#{note.title}")
+						input#noteTitle.form-control(type="text" name="noteTitle" value="#{note.title}"  placeholder="标题" style="height:7rem;line-height:7rem;font-size:4rem;")
 				.form-group
-					label.col-sm-1.control-label(for="noteContent") 内容：
 					.col-sm-11
-						textarea#noteContent.col-md-12(style="height:300px;" name="noteContent") #{note.content}
-				.form-group
-					label.col-sm-1.control-label(for="")
+						textarea#noteContent.col-md-12(name="noteContent" placeholder="内容" style="width:100%;height:70rem;font-size:4rem;") #{note.content}
+				.form-group(style="text-align:right;")
 					.col-sm-11
-						button.btn.btn-info#submit(type="button") 提交
-						button.btn.btn-info#cancel(type="button") 取消
+						button.btn.btn-info#submit(type="button" style="font-size:3rem;") 提交
+						button.btn.btn-info#cancel(type="button" style="font-size:3rem;margin-left:2rem;") 取消
