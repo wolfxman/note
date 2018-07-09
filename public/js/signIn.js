@@ -23,6 +23,9 @@ $(function(){
 			}
 		})
 	});
+	$('#signUp').click(function(e) {
+		location.href = '../user/signUp';
+	});
 	$('body').keyup(function(e) {
 		if(e.keyCode == 13)
 			$('#signIn').click();
