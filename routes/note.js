@@ -21,6 +21,7 @@ router.get('/add', function(req, res, next) {
 	})
 });
 router.get('/add/:id', function(req, res, next) {
+	console.log(req.originalUrl);
 	if(!req.session.user)
 		res.redirect('/')
 	var id = req.params.id;
